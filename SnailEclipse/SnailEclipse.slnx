@@ -1,0 +1,11 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="SnailRT-BeamEquivalenceChecker/SnailRT-BeamEquivalenceChecker.csproj">
+    <Platform Solution="Debug|*" Project="x64" />
+  </Project>
+  <Project Path="SnailRT-PlanPulseSetup/SnailRT-PlanPulseSetup.csproj">
+    <Platform Solution="Debug|*" Project="x64" />
+  </Project>
+</Solution>

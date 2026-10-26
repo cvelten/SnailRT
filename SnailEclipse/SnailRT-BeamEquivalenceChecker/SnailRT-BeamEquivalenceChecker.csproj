@@ -1,0 +1,32 @@
+<Project>
+  <!-- Self-contained binary plugin: does not import the SingleFileUnits Directory.Build.props, so the
+       folder can be moved anywhere below the repo root. The ESAPI DLLs are found by searching upward for
+       API\<EsapiVersion>\. Override the API version with /p:EsapiVersion=v16.1. -->
+  <PropertyGroup>
+    <ImportDirectoryBuildProps>false</ImportDirectoryBuildProps>
+    <ImportDirectoryBuildTargets>false</ImportDirectoryBuildTargets>
+  </PropertyGroup>
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>$(MSBuildProjectName).esapi</AssemblyName>
+    <EsapiVersion Condition="'$(EsapiVersion)' == ''">v18.1</EsapiVersion>
+    <EsapiDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), API\$(EsapiVersion)\VMS.TPS.Common.Model.API.dll))\API\$(EsapiVersion)\</EsapiDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="VMS.TPS.Common.Model.API" HintPath="$(EsapiDir)VMS.TPS.Common.Model.API.dll" Private="false" />
+    <Reference Include="VMS.TPS.Common.Model.Types" HintPath="$(EsapiDir)VMS.TPS.Common.Model.Types.dll" Private="false" />
+  </ItemGroup>
+
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+</Project>
